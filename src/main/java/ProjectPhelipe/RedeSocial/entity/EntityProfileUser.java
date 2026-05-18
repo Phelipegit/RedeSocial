@@ -24,9 +24,16 @@ public class EntityProfileUser {
     @JoinColumn(name = "user_id")
     private EntityUser user_id;
 
-    @OneToMany(mappedBy = "profile_id",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "profile_id",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EntityPostagem> listaPostagens = new ArrayList<>();
-    public EntityProfileUser() {
 
+    @OneToMany(mappedBy = "entityProfileUser", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<EntityCurtida> listaCurtidas = new ArrayList<>();
+
+    public EntityProfileUser(EntityUser user_id) {
+        this.user_id = user_id;
+    }
+
+    public EntityProfileUser() {
     }
 }

@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,11 +24,14 @@ public class EntityPostagem {
     private String mensagem_post;
 
     @CreationTimestamp
-    private LocalDateTime localDateTime;
+    private LocalDateTime createAt;
 
     @ManyToOne()
     @JoinColumn(name = "profile_id")
     private EntityProfileUser profile_id;
+
+    @OneToMany(mappedBy = "entityPostagem")
+    private List<EntityCurtida> entityCurtidaList = new ArrayList<>();
 
     public EntityPostagem(String postagem_url,String mensagem_post) {
         this.postagem_url = postagem_url;
