@@ -1,6 +1,7 @@
 package ProjectPhelipe.RedeSocial.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +18,10 @@ public class EntityUser {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true)
+    @Email
+    private String email;
+
     @Column(nullable = false)
     private String nome;
 
@@ -32,7 +37,8 @@ public class EntityUser {
     @OneToOne(mappedBy = "user_id",cascade = CascadeType.ALL)
     private EntityProfileUser entityProfileUser;
 
-    public EntityUser(String nome,String password,String username) {
+    public EntityUser(String email,String nome,String password,String username) {
+        this.email = email;
         this.nome = nome;
         this.password = password;
         this.username = username;
